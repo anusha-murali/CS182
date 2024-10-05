@@ -1,27 +1,16 @@
-def encrypt(plaintext:str, cipherkey:str = None)->str:
-        """Convert plaintext to ciphertext using a cipherkey"""
-        plaintext = ""
-        offset = alphabet.index(cipherkey)
-        for i in range(len(plaintext)):
-            plainChar = plaintext[i]
-            
-            cipherChar = alphabet[(alphabet.index(plainChar) + offset) \
-                                  % len(alphabet)]
-            ciphertext = plaintext + cipherChar
-        return ciphertext
-                             
-def decrypt(ciphertext:str, cipherkey:str = None)->str:
-    
-     """Convert ciphertext to plaintext using a cipherkey"""
-     plaintext = ""
-     offset = alphabet.index(cipherkey)
+import gym
+from time import sleep
+import numpy as np
 
+env = gym.make("FrozenLake-v1", map_name="4x4", is_slippery=True)
 
-     for i in range(len(ciphertext)):
-            cipherChar = ciphertext[i]
-            plainChar = alphabet[(alphabet.index(cipherChar) - offset) \
-                                  % len(alphabet)]
-            plaintext = plaintext + plainChar
-     return plaintext
+# env = gym.make("FrozenLake-v1", map_name="4x4", render_mode = "human", is_slippery=True) # Set up the Frozen lake environmnet 
+env.reset()
+
+print("Testing Value Iteration...")
+sleep(1)
+my_policy = DynamicProgramming(env, gamma=0.9, epsilon=0.01) # Instantiate class object
+
+# print("1: ", my_policy.V)
     
-    
+my_policy.value_iteration() # Iterate to derive the final policy
